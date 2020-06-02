@@ -24,8 +24,8 @@ app.get('/notes', function(req, res) {
 });
 
 //API routes
-
 //use fs.writeFile to write notes to json
+
 
 //listener
 app.listen(4040, function() {
