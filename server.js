@@ -6,7 +6,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 4040;
 
-const notes = [];
+let notes = require("./db/db.json");
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -25,11 +25,15 @@ app.get("/notes", function(req, res) {
 });
 
 //API routes
+app.get("/api/notes", function(req, res) {
+    res.json(notes)
+});
 //use fs.writeFile to write notes to json
 //create new note
 app.post("/api/notes", function(req, res) {
     const newNote = req.body;
-    // newNote.id = ??
+    newNote.id = Math.floor(Math.random() * 1000) + 1;
+
     notes.push(newNote)
 
     fs.writeFile("./db/db.json", JSON.stringify(notes), function(err) {
@@ -41,13 +45,13 @@ app.post("/api/notes", function(req, res) {
 //delete note
 app.delete("/api/notes/:id", function(req, res) {
     const id = parseInt(req.params.id);
-    const removed = data.spliced(id, 1);
-    res.json(removed[0]);
+    // const removed = data.splice(id, 1);
+    const filteredNotes = notes.filter(note => note.id !== id)
+    notes = filteredNotes
 
-    fs.writeFile("./db/db.json", JSON.stringify(removed), function(err) {
+    fs.writeFile("./db/db.json", JSON.stringify(notes), function(err) {
         if (err) console.log(err);
-        notes = removed;
-        res.sendStatus(200);
+         res.status(200).json(notes);
     });
 });
 
