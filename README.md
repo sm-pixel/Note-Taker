@@ -7,7 +7,7 @@ An application that can be used to write, save, and delete notes. This applicati
 ![Note Taker Demo](public/assets/gif/noteTaker.gif)
 
 # Deployment
-![Note-Taker Heroku App](placeholder.com)
+![Note-Taker Heroku App](https://floating-lake-32060.herokuapp.com/)
 
 # Table of Contents
 
