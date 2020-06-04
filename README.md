@@ -1,5 +1,5 @@
 # Note-Taker
-![npm](https://img.shields.io/npm/v/inquirer?style=flat-square)
+![npm](https://img.shields.io/npm/v/inquirer?style=flat-square)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 # Description 
 An application that can be used to write, save, and delete notes. This application uses an express backend and save and retrieve note data from a JSON file.
 
