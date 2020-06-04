@@ -15,21 +15,21 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //HTML routes
-app.get("/", req, res => {
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"))
 });
 
-app.get("/notes", req, res => {
+app.get("/notes", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/notes.html"))
 });
 
 //API routes
-app.get("/api/notes", req, res => {
+app.get("/api/notes", (req, res) => {
     res.json(notes)
 });
 
 //create new note
-app.post("/api/notes", req, res => {
+app.post("/api/notes", (req, res) => {
     const newNote = req.body;
     newNote.id = Math.floor(Math.random() * 1000) + 1;
 
@@ -42,7 +42,7 @@ app.post("/api/notes", req, res => {
 })
 
 //delete note
-app.delete("/api/notes/:id", req, res => {
+app.delete("/api/notes/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const filteredNotes = notes.filter(note => note.id !== id)
     notes = filteredNotes
