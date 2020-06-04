@@ -14,48 +14,46 @@ app.use(express.json());
 // Serves resources from pulic folder
 app.use(express.static("public"));
 
-
 //HTML routes
-app.get("/", function(req, res) {
+app.get("/", req, res => {
     res.sendFile(path.join(__dirname, "/public/index.html"))
 });
 
-app.get("/notes", function(req, res) {
+app.get("/notes", req, res => {
     res.sendFile(path.join(__dirname, "/public/notes.html"))
 });
 
 //API routes
-app.get("/api/notes", function(req, res) {
+app.get("/api/notes", req, res => {
     res.json(notes)
 });
-//use fs.writeFile to write notes to json
+
 //create new note
-app.post("/api/notes", function(req, res) {
+app.post("/api/notes", req, res => {
     const newNote = req.body;
     newNote.id = Math.floor(Math.random() * 1000) + 1;
 
     notes.push(newNote)
 
-    fs.writeFile("./db/db.json", JSON.stringify(notes), function(err) {
+    fs.writeFile("./db/db.json", JSON.stringify(notes), err => {
         if (err) console.log(err)
         res.sendStatus(200)
     })
 })
 
 //delete note
-app.delete("/api/notes/:id", function(req, res) {
+app.delete("/api/notes/:id", req, res => {
     const id = parseInt(req.params.id);
-    // const removed = data.splice(id, 1);
     const filteredNotes = notes.filter(note => note.id !== id)
     notes = filteredNotes
 
-    fs.writeFile("./db/db.json", JSON.stringify(notes), function(err) {
+    fs.writeFile("./db/db.json", JSON.stringify(notes), err => {
         if (err) console.log(err);
          res.status(200).json(notes);
     });
 });
 
 //listener
-app.listen(4040, function() {
+app.listen(4040, () => {
     console.log('Listening on PORT ' + PORT + ' ...');
 });
